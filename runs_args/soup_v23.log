@@ -1,0 +1,47 @@
+[xpu_patch] NMS patched to CPU
+WARNING imgsz=[240, 320] must be multiple of max stride 32, updating to [256, 320]
+last.pt                                       0.9887   0.8974 A  0.9895 B  0.9878   17s
+WARNING imgsz=[240, 320] must be multiple of max stride 32, updating to [256, 320]
+epoch150.pt                                   0.9885   0.8964 A  0.9895 B  0.9874   15s
+WARNING imgsz=[240, 320] must be multiple of max stride 32, updating to [256, 320]
+epoch140.pt                                   0.9876   0.8947 A  0.9892 B  0.9861   16s
+WARNING imgsz=[240, 320] must be multiple of max stride 32, updating to [256, 320]
+epoch130.pt                                   0.9877   0.8951 A  0.9886 B  0.9868   16s
+WARNING imgsz=[240, 320] must be multiple of max stride 32, updating to [256, 320]
+epoch120.pt                                   0.9869   0.8930 A  0.9872 B  0.9867   16s
+start best single: last.pt 0.9887
+WARNING imgsz=[240, 320] must be multiple of max stride 32, updating to [256, 320]
+last.pt+epoch150.pt                           0.9887   0.8967 A  0.9896 B  0.9877   15s
+  -> keep epoch150.pt (0.9887)
+WARNING imgsz=[240, 320] must be multiple of max stride 32, updating to [256, 320]
+last.pt+epoch150.pt+epoch130.pt               0.9886   0.8963 A  0.9893 B  0.9878   15s
+WARNING imgsz=[240, 320] must be multiple of max stride 32, updating to [256, 320]
+last.pt+epoch150.pt+epoch140.pt               0.9886   0.8969 A  0.9895 B  0.9877   15s
+WARNING imgsz=[240, 320] must be multiple of max stride 32, updating to [256, 320]
+last.pt+epoch150.pt+epoch120.pt               0.9877   0.8953 A  0.9883 B  0.9871   15s
+WARNING imgsz=[240, 320] must be multiple of max stride 32, updating to [256, 320]
+w(0, 1)                                       0.9885   0.8964 A  0.9895 B  0.9874   15s
+WARNING imgsz=[240, 320] must be multiple of max stride 32, updating to [256, 320]
+w(2, 1)                                       0.9887   0.8973 A  0.9896 B  0.9877   14s
+WARNING imgsz=[240, 320] must be multiple of max stride 32, updating to [256, 320]
+w(3, 1)                                       0.9887   0.8972 A  0.9896 B  0.9877   14s
+WARNING imgsz=[240, 320] must be multiple of max stride 32, updating to [256, 320]
+w(1, 0)                                       0.9887   0.8974 A  0.9895 B  0.9878   14s
+WARNING imgsz=[240, 320] must be multiple of max stride 32, updating to [256, 320]
+w(1, 2)                                       0.9887   0.8970 A  0.9895 B  0.9877   14s
+WARNING imgsz=[240, 320] must be multiple of max stride 32, updating to [256, 320]
+w(1, 3)                                       0.9887   0.8973 A  0.9896 B  0.9877   14s
+WARNING imgsz=[240, 320] must be multiple of max stride 32, updating to [256, 320]
+w(0, 1)                                       0.9885   0.8964 A  0.9895 B  0.9874   14s
+WARNING imgsz=[240, 320] must be multiple of max stride 32, updating to [256, 320]
+w(2, 1)                                       0.9887   0.8973 A  0.9896 B  0.9877   14s
+WARNING imgsz=[240, 320] must be multiple of max stride 32, updating to [256, 320]
+w(3, 1)                                       0.9887   0.8972 A  0.9896 B  0.9877   14s
+WARNING imgsz=[240, 320] must be multiple of max stride 32, updating to [256, 320]
+w(1, 0)                                       0.9887   0.8974 A  0.9895 B  0.9878   14s
+WARNING imgsz=[240, 320] must be multiple of max stride 32, updating to [256, 320]
+w(1, 2)                                       0.9887   0.8970 A  0.9895 B  0.9877   14s
+WARNING imgsz=[240, 320] must be multiple of max stride 32, updating to [256, 320]
+w(1, 3)                                       0.9887   0.8973 A  0.9896 B  0.9877   14s
+BEST ['last.pt', 'epoch150.pt'] [1, 1] 0.9887 0.8967 A 0.9896 B 0.9877
+SAVED work\soups\soup_v23.pt

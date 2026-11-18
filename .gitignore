@@ -1,0 +1,6 @@
+# Chỉ loại thư mục sinh ra ở gốc gói (dataset dẫn xuất / runs / cache).
+# Neo "/work/" để KHÔNG loại original_source/work/ (code gốc cần nộp).
+/work/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/

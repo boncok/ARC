@@ -1,0 +1,39 @@
+# liteC (v20): reclaim the unused stride-32 stage, spend it on P2 width + a much wider head.
+# Error analysis on the honest holdout showed the student's deficit is classification
+# calibration (11982 low-conf FPs vs teacher 521; 48 high-conf hallucinations vs 10),
+# not missing pyramid levels. Hence: P5 56->32, P2 24->32, head box 40 / cls 80 (DW).
+# Total 197433 params (cap 200000).
+nc: 7
+depth_multiple: 1.0
+width_multiple: 1.0
+scales:
+  n: [1.0, 1.0, 256]
+backbone:
+  - [-1, 1, Conv, [32, 3, 2]]
+  - [-1, 1, Conv, [32, 3, 2]]
+  - [-1, 2, C3k2, [32, False, 0.25]]
+  - [-1, 1, Conv, [32, 3, 2]]
+  - [-1, 2, C3k2, [32, False, 0.25]]
+  - [-1, 1, Conv, [40, 3, 2]]
+  - [-1, 2, C3k2, [40, False, 0.25]]
+  - [-1, 1, Conv, [32, 3, 2]]
+  - [-1, 2, C3k2, [32, True]]
+  - [-1, 1, SPPF, [32, 5]]
+  - [-1, 2, C2PSA, [32]]
+head:
+  - [-1, 1, nn.Upsample, [None, 2, "nearest"]]
+  - [[-1, 6], 1, Concat, [1]]
+  - [-1, 2, C3k2, [40, False]]
+  - [-1, 1, nn.Upsample, [None, 2, "nearest"]]
+  - [[-1, 4], 1, Concat, [1]]
+  - [-1, 2, C3k2, [32, False]]
+  - [-1, 1, nn.Upsample, [None, 2, "nearest"]]
+  - [[-1, 2], 1, Concat, [1]]
+  - [-1, 2, C3k2, [32, False]]
+  - [-1, 1, Conv, [32, 3, 2]]
+  - [[-1, 16], 1, Concat, [1]]
+  - [-1, 2, C3k2, [32, False]]
+  - [-1, 1, Conv, [32, 3, 2]]
+  - [[-1, 13], 1, Concat, [1]]
+  - [-1, 2, C3k2, [40, False]]
+  - [[19, 22, 25], 1, Detect, [7]]
