@@ -41,7 +41,6 @@ submission_v22/
 ├── declaration/                # 10_tuan_thu_luat.md + 11_khai_bao_pretrained.md
 ├── notebooks/                  # (bổ sung tuỳ chọn — xem mục 10)
 ├── requirements.txt
-└── work/                       # SINH RA khi chạy (dataset/runs/cache/CSV) — đã .gitignore
 ```
 
 ## 2. Các file code gốc (`original_source/`) và vai trò
@@ -149,8 +148,7 @@ python scripts/check_submission.py --path work/submission.csv
 
 Inference 4000 ảnh test ~3–5 phút (GPU) / ~15–25 phút (CPU). Cache raw kèm sha256 weights +
 cấu hình; cache khác model/cấu hình bị từ chối tự động. Train đặt `deterministic=False` nên
-chạy lại trên phần cứng khác có thể lệch số rất nhỏ; file nộp chính thức là CSV từ **cách nhanh**
-(đảm bảo giống từng byte), BTC chấm lại trong ngưỡng lệch 0,5 điểm so với Kaggle.
+chạy lại trên phần cứng khác có thể lệch số rất nhỏ; file nộp chính thức là CSV.
 
 ## 6. Chuỗi tạo v22 (recipe tóm tắt)
 
@@ -185,9 +183,9 @@ cạnh ≤ 1 px, kẹp biên [0,320]×[0,240], làm tròn score 5 chữ số / b
 - Detector **197.433 tham số ≤ 200.000** (assert trong `build_lite_init.py`).
 - Suy luận **1 model, không TTA, không ensemble**; ảnh đầu vào ≤ 320×240.
 - Khai báo nguồn gốc pretrained: `declaration/11_khai_bao_pretrained.md` (đã chốt: **giữ v22 +
-  khai báo pretrained**). Đối chiếu luật 4–7: `declaration/10_tuan_thu_luat.md`.
+  khai báo pretrained**).
 - LB = 70·mAP50(test) + 30·Accuracy(intent). Mốc hiệu chuẩn: v19 = 98.49687, v20 = 98.82758,
-  v21 = 98.81534 (offset val→test ≈ 0.0064). Điểm LB của v22: xem lịch sử nộp Kaggle của đội.
+  v21 = 98.81534 (offset val→test ≈ 0.0064). 
 
 ## 8. Bằng chứng kiểm chứng (máy gốc Intel Arc B580)
 
