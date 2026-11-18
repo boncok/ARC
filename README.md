@@ -28,8 +28,8 @@ submission_v22/
 ├── configs/yolo11_p2_liteC.yaml# Kiến trúc detector liteC (strides 4/8/16, P2)
 ├── manifests/                  # val_clean.txt (320 ảnh vc held-out) + mon.txt (92 ảnh monitor)
 ├── models/
-│   ├── detect_q_v20e_best.pt   # ★ Champion detector FP32 (197.433 params) — tạo submission
-│   ├── detect_soup_v24.pt      # Soup trung gian (0.9896 vc) — điểm khởi đầu của q_v20e
+│   ├── detect_q_v20e_best.pt   # ★ Champion detector (197.433 params, 0,75 MB) — tạo submission
+│   ├── detect_soup_v24.pt      # Soup trung gian (0.9896 vc, 0,74 MB) — khởi đầu của q_v20e
 │   ├── detect_init_liteC.pt    # Khởi tạo ngẫu nhiên liteC
 │   ├── teacher_q_m320_best.pt  # Teacher KD (chỉ dùng lúc train)
 │   ├── intent_tfidf_oov.joblib # ★ Model intent (TF-IDF + LogReg C=20) fit 6000 câu
@@ -184,6 +184,12 @@ cạnh ≤ 1 px, kẹp biên [0,320]×[0,240], làm tròn score 5 chữ số / b
 
 - Detector **197.433 tham số ≤ 200.000** (assert trong `build_lite_init.py`).
 - Suy luận **1 model, không TTA, không ensemble**; ảnh đầu vào ≤ 320×240.
+- **File model nộp BTC ≤ 10 MB:** cặp tạo submission là `detect_q_v20e_best.pt` (**0,75 MB**)
+  + `intent_tfidf_oov.joblib` (**0,19 MB**) → tổng ~0,94 MB. Checkpoint detect gốc lúc train
+  (~29 MB) chứa KD forward-hook chỉ dùng khi huấn luyện; bản trong gói đã gỡ bỏ hook
+  (inference-only), **weights giữ nguyên từng byte** và đã kiểm chứng `SLIM_CSV_IDENTICAL`.
+  Bản as-trained đầy đủ vẫn còn ở `work/runs/q_v20e/weights/best.pt` (workspace, không nộp).
+  `teacher_q_m320_best.pt` (40,5 MB) chỉ dùng lúc train KD, **không** nộp BTC.
 - Khai báo nguồn gốc pretrained: `declaration/11_khai_bao_pretrained.md` (đã chốt: **giữ v22 +
   khai báo pretrained**). Đối chiếu luật 4–7: `declaration/10_tuan_thu_luat.md`.
 - LB = 70·mAP50(test) + 30·Accuracy(intent). Mốc hiệu chuẩn: v19 = 98.49687, v20 = 98.82758,
@@ -193,6 +199,7 @@ cạnh ≤ 1 px, kẹp biên [0,320]×[0,240], làm tròn score 5 chữ số / b
 
 ```
 PACKAGE_CSV_IDENTICAL            # work/submission.csv == reference/submission_kd_v22.csv (từng byte)
+SLIM_CSV_IDENTICAL               # dựng lại từ detect 0,75 MB (gỡ KD hook) == reference (từng byte)
 rows 8000 det 4000 intent 4000
 boxes 185505 >=0.5 25384 oob 0 degenerate 0 empty_img 0 max_per_img 100
 intent dist {'LIST': 800, 'EXIST': 800, 'COUNT': 800, 'OUT_OF_SCOPE': 798, 'LOCATION': 802}
